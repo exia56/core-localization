@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Contact";
+}
+@using core_localization.Controllers;
+@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@*頁面直接注入localizer*@
+@inject IHtmlLocalizer<HomeController> htmlLocalizer;
+@inject Microsoft.Extensions.Localization.IStringLocalizer<HomeController> _localizer;
+
+@*頁面直接以controller的resources作為localizer的資源*@
+@*Resources/Controllers/HomeController.resx*@
+@inject IViewLocalizer viewLocalizer
+
+<p>StartUp內沒設定預設值，以下2個會是server的語系哦～<br>
+CultureInfo.CurrentCulture.Name: @CultureInfo.CurrentCulture.Name<br>
+CultureInfo.CurrentUICulture.Name: @CultureInfo.CurrentUICulture.Name</p>
+<p>頁面抓到的語系（預設值或是URL抓到的culture語系）<br>
+ViewContext.RouteData.Values["culture"]: @ViewContext.RouteData.Values["culture"]</p>
+<p>由Controller透過ViewData傳送到CSHtml頁面<br>
+From Controller's localizer: @ViewData["hello home"]<br>
+From Controller's Shared localizer: @ViewData["hello"]<br>
+From htmlLocalizer: @htmlLocalizer["have tag"]</p>
+<p>因為這個不是用htmlLocalizer，所以不會以html來看待<br>
+<p>From _localizer: @_localizer["have tag"] <br>
+From viewLocalizer: @viewLocalizer["have tag"] </p>
